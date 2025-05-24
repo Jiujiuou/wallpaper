@@ -41,10 +41,44 @@
       .image-wrapper:hover .set-wallpaper-btn {
         display: block;
       }
+      .control-panel {
+        margin-bottom: 20px;
+      }
+      .time-input {
+        margin: 10px 0;
+        display: none;
+      }
+      .time-input.show {
+        display: block;
+      }
+      .time-input label {
+        margin-right: 10px;
+      }
+      .time-input input[type="number"] {
+        width: 60px;
+        margin-right: 5px;
+      }
     </style>
   </head>
   <body>
-    <button id="selectFolder">选择图片文件夹</button>
+    <div class="control-panel">
+      <div>
+        <label>
+          <input type="radio" name="mode" value="manual" checked> 手动切换
+        </label>
+        <label>
+          <input type="radio" name="mode" value="auto"> 自动切换
+        </label>
+      </div>
+      <div class="time-input" id="timeInput">
+        <label>切换间隔：</label>
+        <input type="number" id="days" min="0" value="0"><span>天</span>
+        <input type="number" id="hours" min="0" max="23" value="0"><span>时</span>
+        <input type="number" id="minutes" min="0" max="59" value="1"><span>分</span>
+        <input type="number" id="seconds" min="0" max="59" value="0"><span>秒</span>
+      </div>
+      <button id="selectFolder" style="display: none;">选择图片文件夹</button>
+    </div>
     <div id="imageContainer" class="image-container"></div>
     <script src="renderer.js"></script>
   </body>
