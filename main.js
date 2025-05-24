@@ -63,7 +63,9 @@ ipcMain.handle('get-images', async (event, folderPath) => {
 // 处理设置壁纸的请求
 ipcMain.handle('set-wallpaper', async (event, imagePath) => {
     try {
-        await wallpaper.setWallpaper(imagePath);
+        await wallpaper.setWallpaper(imagePath, {
+            scale: 'fit'  // 设置缩放模式为 fit，保持原始比例
+        });
         return { success: true };
     } catch (error) {
         console.error('设置壁纸失败:', error);
