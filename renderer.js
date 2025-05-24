@@ -13,11 +13,25 @@ function displayImages(imagePaths) {
     container.innerHTML = '';
     
     imagePaths.forEach(imagePath => {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'image-wrapper';
+
         const img = document.createElement('img');
-        img.src = imagePath;
+        img.src = imagePath.displayPath; // 使用 displayPath 来显示图片
         img.className = 'image-preview';
-        container.appendChild(img);
+
+        const button = document.createElement('button');
+        button.className = 'set-wallpaper-btn';
+        button.textContent = '设为壁纸';
+        button.onclick = async (e) => {
+            e.stopPropagation();
+            await ipcRenderer.invoke('set-wallpaper', imagePath.localPath); // 使用 localPath 来设置壁纸
+        };
+
+        wrapper.appendChild(img);
+        wrapper.appendChild(button);
+        container.appendChild(wrapper);
     });
 }
 
-console.log('渲染进程已加载')
+console.log('渲染进程已加载');

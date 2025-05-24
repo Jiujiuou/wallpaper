@@ -18,6 +18,28 @@
         width: 200px;
         height: 200px;
         object-fit: cover;
+        position: relative;
+      }
+      .image-wrapper {
+        position: relative;
+        width: 200px;
+        height: 200px;
+      }
+      .set-wallpaper-btn {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: none;
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        cursor: pointer;
+        border-radius: 4px;
+      }
+      .image-wrapper:hover .set-wallpaper-btn {
+        display: block;
       }
     </style>
   </head>

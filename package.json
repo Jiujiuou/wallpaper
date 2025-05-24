@@ -4,9 +4,12 @@
   "description": "My Electron application",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "chcp 65001 && electron ."
   },
   "devDependencies": {
     "electron": "^36.3.1"
+  },
+  "dependencies": {
+    "wallpaper": "^7.2.1"
   }
 }
