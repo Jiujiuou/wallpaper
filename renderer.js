@@ -8,7 +8,7 @@ document.querySelectorAll('input[name="mode"]').forEach((radio) => {
   radio.addEventListener("change", (e) => {
     const isAuto = e.target.value === "auto";
     document.getElementById("timeInput").classList.toggle("show", isAuto);
-    document.getElementById("selectFolder").style.display = "block";
+
     if (!isAuto && autoChangeTimer) {
       clearInterval(autoChangeTimer);
       autoChangeTimer = null;
