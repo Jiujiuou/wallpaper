@@ -27,7 +27,7 @@
       }
       .set-wallpaper-btn {
         position: absolute;
-        top: 50%;
+        top: 40%;
         left: 50%;
         transform: translate(-50%, -50%);
         display: none;
@@ -38,7 +38,25 @@
         cursor: pointer;
         border-radius: 4px;
       }
-      .image-wrapper:hover .set-wallpaper-btn {
+      .delete-image-btn {
+        position: absolute;
+        top: 60%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: none;
+        background: rgba(220, 53, 69, 0.8);
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 14px;
+      }
+      .delete-image-btn:hover {
+        background: rgba(200, 35, 51, 0.9);
+      }
+      .image-wrapper:hover .set-wallpaper-btn,
+      .image-wrapper:hover .delete-image-btn {
         display: block;
       }
       .control-panel {

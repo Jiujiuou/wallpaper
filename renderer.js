@@ -76,16 +76,33 @@ function displayImages(imagePaths) {
     img.src = imagePath.displayPath;
     img.className = "image-preview";
 
-    const button = document.createElement("button");
-    button.className = "set-wallpaper-btn";
-    button.textContent = "设为壁纸";
-    button.onclick = async (e) => {
+    const setWallpaperButton = document.createElement("button");
+    setWallpaperButton.className = "set-wallpaper-btn";
+    setWallpaperButton.textContent = "设为壁纸";
+    setWallpaperButton.onclick = async (e) => {
       e.stopPropagation();
       await ipcRenderer.invoke("set-wallpaper", imagePath.localPath);
     };
 
+    const deleteButton = document.createElement("button");
+    deleteButton.className = "delete-image-btn";
+    deleteButton.textContent = "删除图片";
+    deleteButton.onclick = async (e) => {
+      e.stopPropagation();
+
+      // 确认删除
+      const result = await ipcRenderer.invoke(
+        "delete-image",
+        imagePath.localPath
+      );
+      if (!result.success) {
+        alert("删除失败: " + result.error);
+      }
+    };
+
     wrapper.appendChild(img);
-    wrapper.appendChild(button);
+    wrapper.appendChild(setWallpaperButton);
+    wrapper.appendChild(deleteButton);
     container.appendChild(wrapper);
   });
 }
@@ -103,6 +120,16 @@ ipcRenderer.on("wallpaper-deleted", (event, deletedPath) => {
   if (isAuto && allImages.length > 0) {
     setRandomWallpaper();
   }
+});
+
+// 监听图片删除事件
+ipcRenderer.on("image-deleted", (event, deletedPath) => {
+  // 从数组中移除被删除的图片
+  allImages = allImages.filter((img) => img.localPath !== deletedPath);
+  // 重新显示图片列表
+  displayImages(allImages);
+
+  console.log("图片已删除:", deletedPath);
 });
 
 console.log("渲染进程已加载");

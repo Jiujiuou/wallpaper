@@ -2,6 +2,7 @@ const { app, BrowserWindow, ipcMain, dialog } = require("electron");
 const path = require("path");
 const fs = require("fs").promises;
 const wallpaper = require("wallpaper");
+const { shell } = require("electron");
 
 let mainWindow;
 let floatWindow;
@@ -147,6 +148,22 @@ ipcMain.handle("delete-current-wallpaper", async () => {
     return { success: true };
   } catch (error) {
     console.error("删除壁纸失败:", error);
+    return { success: false, error: error.message };
+  }
+});
+
+// 处理删除图片的请求
+ipcMain.handle("delete-image", async (event, imagePath) => {
+  try {
+    // 将文件移动到回收站
+    await shell.trashItem(imagePath);
+
+    // 通知渲染进程图片已被删除
+    mainWindow.webContents.send("image-deleted", imagePath);
+
+    return { success: true };
+  } catch (error) {
+    console.error("删除图片失败:", error);
     return { success: false, error: error.message };
   }
 });
